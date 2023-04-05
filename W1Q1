@@ -1,0 +1,31 @@
+Input
+Four non negative integers. 
+The first input is an integer representing the number of 100 rupee notes.
+The second input is an integer representing the number of 10 rupee notes.
+The third input is an integer representing the number of 1 rupee notes.
+The fourth input is an integer representing the price of the item.
+
+Output
+You have to output 1 if the item is affordable.
+You have to output 0 if the item is not affordable.
+
+
+#include <stdio.h>
+int main() 
+{
+int x,y,z,n,sum;
+/*printf("The first input is an integer representing the number of 100 rupee notes.\n");*/
+scanf("%d",&x);
+/*printf("The first input is an integer representing the number of 10 rupee notes\n.");*/
+scanf("%d",&y);
+/*printf("The first input is an integer representing the number of 1 rupee notes\n.");*/
+scanf("%d",&z);
+/*printf("The fourth input is an integer representing the price of the item\n.");*/
+scanf("%d",&n);
+sum=100*x+10*y+1*z;
+if (sum>=n)
+printf("1");
+else
+printf("0");
+}
+
