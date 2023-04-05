@@ -1,0 +1,132 @@
+Input
+-------
+A set of lines, each lines containing a character representing the operation and its inputs.
+
+The operation can be one of the following:
+A <id> <val>
+Add an node with id and val to the list, at the start of the list.
+
+C <id> <val>
+Change the value of the element with id to val.
+If an element with this id is not found, do nothing.
+ 
+S <id>
+If an element with the id is in the list print the id and the value and a newline. 
+Else, print the id and -1 and a newline.
+
+E
+End of input, exit from the program
+Output
+---------
+The output of search queries.
+
+Sample input
+-----------------
+A 1 10
+A 2 20
+S 2
+S 3
+C 2 30
+S 2
+E
+Sample Output
+---------------------
+2 20
+3 -1
+2 30
+
+Explanation
+---------------
+
+The list is initially empty
+Add an element 1 with value 10
+list : (1,10) -> NULL
+Add an element 2 with value 20
+list : (2,20) -> (1,10) -> NULL
+Search for element with id 2, print 
+2 20
+Search for element with id 3, print 
+3 -1
+Change priority of 2 to 30
+list : (2,30) -> (1,10) -> NULL
+Search for element with id 2, print 
+2 30
+End of input
+
+#include <stdio.h>
+
+#include <stdlib.h>
+
+struct node {
+  int id;
+  int value;
+  struct node * next;
+};
+
+struct node * create_node(int id, int val) {
+  struct node * new_node;
+  new_node = (struct node * ) malloc(sizeof(struct node));
+  new_node -> id = id;
+  new_node -> value = val;
+  new_node -> next = NULL;
+  return new_node;
+}
+
+struct node * append(struct node * list, struct node * e) {
+  if (list == NULL)
+    list = e;
+  else {
+    e -> next = list;
+  }
+  return e;
+}
+
+struct node * search(struct node * list, int id) {
+  while (list != NULL) {
+    if (list -> id == id)
+      return list;
+    list = list -> next;
+  }
+  return NULL;
+}
+
+void change_value(struct node * list, int id, int val) {
+  struct node * e = search(list, id);
+  if (e != NULL)
+    e -> value = val;
+}
+
+int find_value(struct node * list, int id) {
+  struct node * e = search(list, id);
+  if (e != NULL)
+    return e -> value;
+  return -1;
+}
+
+int main() {
+  char op;
+  int id, val;
+  struct node * list = NULL;
+
+  int flag = 1;
+  do {
+    scanf("%c ", & op);
+    switch (op) {
+    case 'A':
+      scanf("%d %d", & id, & val);
+      list = append(list, create_node(id, val));
+      break;
+    case 'S':
+      scanf("%d", & id);
+      printf("%d %d\n", id, find_value(list, id));
+      break;
+    case 'C':
+      scanf("%d %d", & id, & val);
+      change_value(list, id, val);
+      break;
+    case 'E':
+      flag = 0;
+    }
+  } while (flag == 1);
+  return 0;
+}
