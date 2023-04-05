@@ -1,0 +1,34 @@
+Input 
+---------
+The first line of input is a positive integer N.
+The next line contains N positive integers ki
+ for i=1 to N.
+.
+
+Output
+---------
+For each ki
+ given as input, print factorial of ki
+ 
+ #include <stdio.h>
+
+int find_factorial(int k)
+{
+int j;
+int ans=1;
+for(j=0;j<k;j++)
+  ans=ans*(j+1);
+  return ans;
+}
+
+int main(){
+    int n,k;
+    scanf("%d",&n);
+
+    for(int i=0;i<n;i++){
+        scanf("%d",&k);
+        printf("%d ", find_factorial(k));
+    }
+    
+    return 0;
+}
