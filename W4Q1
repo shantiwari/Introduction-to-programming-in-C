@@ -1,0 +1,68 @@
+Input
+
+The first line contains the size of the first array.
+The second line contains the contents of first array. 
+The third line contains the size of the second array.
+The fourth line contains the contents of second array. 
+
+Output 
+
+Output the largest number occurring in the first array that does not occur in the second.
+In case there is no such number, output 0.
+
+Note : The sizes of the arrays are smaller than 20.
+
+Example
+
+Input:
+
+3
+2 3 4
+4
+1 4 5 6
+
+Output: 3
+
+#include<stdio.h>
+int main()
+{
+  int m,n,a[20],b[20],i,j,t;
+  scanf("%d",&m);
+  for(i=0; i<m; i++)
+  {
+    scanf("%d",&a[i]);
+  }
+  scanf("%d",&n);
+  for(i=0;i<n;i++)
+  {
+    scanf("%d",&b[i]);
+  }
+  for(i=0;i<m-1; i++)
+  {
+	for(j=i+1;j<m; j++)
+    {
+      if(a[i]<a[j])
+      {
+        t=a[i];
+        a[i]=a[j];
+        a[j]=t;
+      }
+    }
+  }
+  for(i=0;i<m;i++)
+  {
+    for(j=0;j<n; j++)
+    {
+      if(a[i]==b[j])
+        break;
+    }
+    if(j==n)
+    {
+      printf("%d",a[i]);
+      break;
+    }
+  }
+  if(i==m)
+    printf("0");
+  return 0;
+}
