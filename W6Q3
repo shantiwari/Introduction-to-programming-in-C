@@ -1,0 +1,67 @@
+Input
+The first line contains the dimension of the matrix n. Assume n < 100.
+The second line contains the smoothing parameter ℓ
+. 
+The next n lines contains the contents of the matrix A, each row per line.
+
+Output
+The smoothed matrix of A
+
+Example 
+
+Input
+
+4
+1
+1 4 7 1
+2 5 8 2
+3 6 9 3
+4 7 1 4
+Output
+12  27  27  18  
+21  45  45  30
+27  45  45  27
+20  30  30  17
+
+
+Explanation
+
+A[0][0] = 1 + 2 + 4 + 5 = 12 
+A[1][1] = 1 + 2 +3 + 4 + 5 + 6 + 7 + 8 + 9 = 45
+
+#include<stdio.h>
+int main()
+{
+int n,l;
+  scanf("%d%d",&n,&l);
+  int A[n][n];
+  int B[n][n];
+  for(int i=0;i<n;i++)
+  {
+    for(int j=0;j<n;j++)
+    {
+      scanf("%d", &A[i][j]);
+      B[i][j]=0;
+    }
+  }
+  for(int i=0;i<n;i++)
+  {
+    for(int j=0;j<n;j++)
+    {
+      int il=i - l < 0 ? 0 : i-l;
+      int ih=i + l > n - 1 ? n - 1 : i+l;
+      int jl=j - l < 0 ? 0 : j - l;
+      int jh=j + l > n - 1 ? n - 1 : j + l;
+      for( int u=il;u<=ih;u++)
+      {
+        for(int v=jl;v<=jh;v++)
+        {
+          B[i][j]+=A[u][v];
+        }
+      }
+      printf("%d ",B[i][j] );
+    }
+    printf("\n");
+  }
+  return 0;
+}
