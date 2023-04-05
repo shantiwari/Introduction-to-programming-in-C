@@ -1,0 +1,48 @@
+Input
+
+A string, having length at most 100. The string is guaranteed to have at least one run.
+
+Output
+
+The length of the longest run in the string.
+
+Sample Input
+------------
+abbaaacccc
+
+Sample Output
+-------------
+4
+
+
+#include<stdio.h>
+int main()
+{
+  char s[101];
+  scanf("%s",s);
+  int max_len=1;
+  int cur_len=1;
+  for(int i=1;s[i]!='\0';i++)
+  {
+    if (s[i-1]==s[i])
+    {
+      cur_len++;
+    }
+    else
+    {  
+      if (cur_len>max_len)
+      {
+        max_len=cur_len;
+      }
+      cur_len=1;
+    }
+  }
+  if (cur_len>max_len)
+  {
+    max_len=cur_len;
+  }
+  printf("%d",max_len);
+  return 0;
+}
+    
+  
