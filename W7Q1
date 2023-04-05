@@ -1,0 +1,82 @@
+Input Format :
+
+First line contains the number of students n, where 1<=n<=100.
+In following n lines each line contains(space separated) a name and their respective marks in physics, chemistry, maths, where 0<=marks<=100.
+
+Output Format :
+
+Sorted database of n lines.
+
+
+Hint: You can use qsort function in C to sort the elements in the structure array.
+
+Sample Input
+
+3
+Dave 83 99 77
+Alice 92 88 57
+Evan 83 99 64
+
+Sample Output
+
+Alice 92 88 57
+Dave 83 99 77
+Evan 83 99 64
+
+Explanation
+
+Alice has the more marks in Physics than everyone.
+Dave has same marks as Evan in  Physics and Chemistry but more in mathematics.
+
+#include<stdio.h>
+
+#include<stdlib.h>
+
+struct student {
+  char name[20];
+  int phy, che, math;
+};
+typedef struct student student;
+
+void print(student * s, int n) {
+  int i;
+  for (i = 0; i < n; i++) {
+    printf("%s ", s[i].name);
+    printf("%d ", s[i].phy);
+    printf("%d ", s[i].che);
+    printf("%d\n", s[i].math);
+  }
+}
+
+int comparator(const void * p,
+  const void * q) {
+  float l = ((student * ) p) -> phy;
+  float r = ((student * ) q) -> phy;
+  if ((l - r) != 0) return (r - l);
+  else {
+    l = ((student * ) p) -> che;
+    r = ((student * ) q) -> che;
+    if ((l - r) != 0) return (r - l);
+    else {
+      l = ((student * ) p) -> math;
+      r = ((student * ) q) -> math;
+     if ((l - r) != 0) return (r - l);
+    }
+  }
+  return -1;
+}
+
+int main() {
+  int i, n;
+  scanf("%d", & n);
+  student * student_info = (student * ) malloc(sizeof(student) * n);
+  for (i = 0; i < n; i++) {
+    scanf("%s", student_info[i].name);
+    scanf("%d", & student_info[i].phy);
+    scanf("%d", & student_info[i].che);
+    scanf("%d", & student_info[i].math);
+  }
+  qsort((void * ) student_info, n, sizeof(student), comparator);
+  print(student_info, n);
+  return 0;
+}
