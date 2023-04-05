@@ -1,0 +1,42 @@
+Input
+The first line contains the primary string (PS)
+The next line contains a character (c)
+The next line contains a string (s)
+
+Output
+Print the string PS with every occurence of c replaced by s.
+
+NOTE:- There are no whitespaces in PS or s.
+Maximum length of PS is 100. Maximum length of s is 10.
+
+#include<stdio.h>
+int main()
+{
+  char ps[100], temp [100],c ,s[15];
+  int i, j,k;
+  scanf("%s",ps);
+  scanf("\n%c",&c);
+  scanf("%s",s);
+  for(i=j=0; ps[i]!= '\0'; i++)
+  {
+    if(ps[i]==c)
+    {
+      for (k=0; s[k]!= '\0'; k++)
+      {
+        temp[j++] =s[k];
+      }
+    }
+    else
+      temp[j++]=ps[i];
+  }
+  temp[j]=0;
+  i=0;
+  while(temp[i]!='\0')
+  {
+    ps[i] =temp[i];
+    i++;
+  }
+  ps[i]=0;
+  printf("%s",ps);
+  return 0;
+}
